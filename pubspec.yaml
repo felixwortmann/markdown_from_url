@@ -1,7 +1,6 @@
 name: markdown_from_url
 description: Just a simple library to fetch raw markdown from the web and render it to a widget
 version: 0.0.1
-author: Felix Wortmann
 homepage: https://github.com/felixwortmann/markdown_from_url
 
 environment:
