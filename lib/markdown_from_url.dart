@@ -16,11 +16,41 @@ class MarkdownFromUrlPresenter extends StatelessWidget {
       future: http.get(url),
       builder: (BuildContext context, AsyncSnapshot<http.Response> response) =>
           response.hasData && response.data.statusCode == 200
-              ? Markdown(
-                  data: response.data.body,
-                  onTapLink: (link) => launch(link),
+              ? RawMarkdownPresenter(
+                  rawMarkdown: response.data.body,
                 )
               : CircularProgressIndicator(),
+    );
+  }
+}
+
+class RawMarkdownPresenter extends StatelessWidget {
+  final String rawMarkdown;
+
+  RawMarkdownPresenter({@required this.rawMarkdown});
+
+  @override
+  Widget build(BuildContext context) {
+    return Markdown(
+      data: rawMarkdown,
+      onTapLink: (link) => launch(link),
+    );
+  }
+}
+
+class MarkdownFromUrl {
+  static showFullScreen(final BuildContext context, final String url) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => Scaffold(
+          body: Center(
+            child: MarkdownFromUrlPresenter(
+              url: url,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
